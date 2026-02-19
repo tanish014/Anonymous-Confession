@@ -1,0 +1,930 @@
+/* ============================================
+   index.css - Warm Paper / Journal Theme
+   ============================================
+   A cozy, warm confession wall with:
+   - Soft cream/beige background
+   - Paper-like card textures
+   - Warm brown and rose accents
+   - Floating hearts & quiet emojis
+   - Gentle animations
+   ============================================ */
+
+/* ---- Google Fonts ---- */
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* ---- CSS Variables (Design Tokens) ---- */
+:root {
+  --bg-primary: #faf6f0;
+  --bg-secondary: #f5efe6;
+  --bg-card: #fffdf9;
+  --bg-card-hover: #fff8f0;
+  --text-primary: #3d2e1f;
+  --text-secondary: #6b5744;
+  --text-muted: #9c8b7a;
+  --accent-rose: #c2727a;
+  --accent-warm: #d4956a;
+  --accent-brown: #8b6e52;
+  --accent-pink: #e8a0b4;
+  --accent-soft: #eac8b0;
+  --shadow-soft: 0 2px 12px rgba(61, 46, 31, 0.06);
+  --shadow-card: 0 4px 20px rgba(61, 46, 31, 0.08);
+  --shadow-hover: 0 8px 30px rgba(61, 46, 31, 0.12);
+  --border-light: #e8ddd0;
+  --border-card: #ece3d7;
+  --radius: 14px;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ---- Global Reset ---- */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* ============================================
+   FLOATING EMOJIS BACKGROUND
+   ============================================ */
+.floating-emojis-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.floating-emoji {
+  position: absolute;
+  font-size: var(--emoji-size, 1.4rem);
+  opacity: 0;
+  animation: floatUp var(--duration, 12s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+@keyframes floatUp {
+  0% {
+    opacity: 0;
+    transform: translateY(100vh) rotate(0deg);
+  }
+
+  10% {
+    opacity: 0.25;
+  }
+
+  50% {
+    opacity: 0.18;
+  }
+
+  90% {
+    opacity: 0.08;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-10vh) rotate(20deg);
+  }
+}
+
+/* ============================================
+   NAVBAR
+   ============================================ */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 32px;
+  background: rgba(250, 246, 240, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-light);
+  box-shadow: var(--shadow-soft);
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.navbar-brand h1 {
+  font-family: 'Merriweather', serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--accent-rose);
+}
+
+.navbar-brand .logo-emoji {
+  font-size: 1.6rem;
+}
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* ---- Nav Links ---- */
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-link {
+  padding: 8px 18px;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-decoration: none;
+  background: transparent;
+  border: 1px solid var(--border-light);
+  transition: var(--transition);
+}
+
+.nav-link:hover {
+  background: rgba(194, 114, 122, 0.08);
+  border-color: var(--accent-rose);
+  color: var(--accent-rose);
+}
+
+/* ---- User Info ---- */
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 2px solid var(--accent-soft);
+  object-fit: cover;
+}
+
+.user-name {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* ---- Buttons ---- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  border: none;
+  border-radius: 50px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  text-decoration: none;
+}
+
+.btn-google {
+  background: linear-gradient(135deg, #4285f4, #34a853);
+  color: white;
+  box-shadow: 0 3px 12px rgba(66, 133, 244, 0.25);
+}
+
+.btn-google:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(66, 133, 244, 0.35);
+}
+
+.btn-logout {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--border-light);
+}
+
+.btn-logout:hover {
+  background: rgba(194, 114, 122, 0.06);
+  border-color: var(--accent-rose);
+  color: var(--accent-rose);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent-rose), var(--accent-warm));
+  color: white;
+  box-shadow: 0 3px 12px rgba(194, 114, 122, 0.25);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(194, 114, 122, 0.35);
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #d95050, #c43434);
+  color: white;
+}
+
+.btn-danger:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(217, 80, 80, 0.3);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-secondary);
+  padding: 8px 12px;
+  border: 1px solid transparent;
+}
+
+.btn-ghost:hover {
+  background: rgba(194, 114, 122, 0.06);
+  border-color: var(--border-light);
+  color: var(--text-primary);
+}
+
+.btn-sm {
+  padding: 6px 14px;
+  font-size: 0.8rem;
+}
+
+/* ============================================
+   MAIN LAYOUT
+   ============================================ */
+.main-content {
+  position: relative;
+  z-index: 1;
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+/* ============================================
+   CONFESSION FORM
+   ============================================ */
+.confession-form {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius);
+  padding: 28px;
+  margin-bottom: 40px;
+  box-shadow: var(--shadow-card);
+  transition: var(--transition);
+}
+
+.confession-form:hover {
+  box-shadow: var(--shadow-hover);
+}
+
+.confession-form h2 {
+  font-family: 'Merriweather', serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: var(--accent-rose);
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.form-textarea {
+  width: 100%;
+  min-height: 120px;
+  padding: 14px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  border-radius: 10px;
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  resize: vertical;
+  transition: var(--transition);
+  line-height: 1.6;
+}
+
+.form-textarea:focus {
+  outline: none;
+  border-color: var(--accent-rose);
+  box-shadow: 0 0 0 3px rgba(194, 114, 122, 0.1);
+  background: white;
+}
+
+.form-textarea::placeholder {
+  color: var(--text-muted);
+}
+
+.form-input {
+  width: 100%;
+  padding: 12px 14px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  border-radius: 10px;
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  transition: var(--transition);
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--accent-rose);
+  box-shadow: 0 0 0 3px rgba(194, 114, 122, 0.1);
+  background: white;
+}
+
+.form-input::placeholder {
+  color: var(--text-muted);
+}
+
+.form-hint {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 6px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.char-count {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-align: right;
+  margin-top: 4px;
+}
+
+.char-count.warning {
+  color: #c48a3f;
+}
+
+.char-count.danger {
+  color: #c2727a;
+}
+
+/* ============================================
+   CONFESSION WALL
+   ============================================ */
+.confession-wall {
+  position: relative;
+}
+
+.wall-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+
+.wall-header h2 {
+  font-family: 'Merriweather', serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--accent-brown);
+}
+
+.confession-count {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  padding: 4px 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 50px;
+}
+
+.wall-empty {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-muted);
+}
+
+.wall-empty .empty-emoji {
+  font-size: 3rem;
+  margin-bottom: 16px;
+  display: block;
+}
+
+.wall-empty p {
+  font-size: 1.05rem;
+}
+
+.confessions-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* ============================================
+   CONFESSION CARD
+   ============================================ */
+.confession-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius);
+  padding: 24px;
+  transition: var(--transition);
+  position: relative;
+  overflow: visible;
+  box-shadow: var(--shadow-soft);
+}
+
+.confession-card:hover {
+  border-color: var(--accent-soft);
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-2px);
+}
+
+.confession-text {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+  word-wrap: break-word;
+}
+
+.confession-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.confession-date {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+/* ---- Reactions ---- */
+.reactions-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.reaction-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border: 1px solid var(--border-light);
+  border-radius: 50px;
+  background: transparent;
+  color: var(--text-secondary);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: var(--transition);
+  position: relative;
+  overflow: visible;
+}
+
+.reaction-btn:hover {
+  transform: scale(1.06);
+  border-color: var(--accent-rose);
+  background: rgba(194, 114, 122, 0.06);
+}
+
+.reaction-btn.active {
+  border-color: var(--accent-rose);
+  background: rgba(194, 114, 122, 0.1);
+  color: var(--accent-rose);
+  box-shadow: 0 0 8px rgba(194, 114, 122, 0.15);
+}
+
+.reaction-btn .emoji {
+  font-size: 1.05rem;
+  transition: transform 0.2s;
+}
+
+.reaction-btn:hover .emoji {
+  transform: scale(1.15);
+}
+
+.reaction-btn .count {
+  font-weight: 600;
+  font-size: 0.82rem;
+}
+
+/* ---- Floating Emoji Animation ---- */
+.emoji-burst {
+  position: absolute;
+  font-size: 1.5rem;
+  pointer-events: none;
+  animation: emojiBurst 1s ease-out forwards;
+  z-index: 10;
+}
+
+@keyframes emojiBurst {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  50% {
+    opacity: 0.8;
+    transform: translateY(-40px) scale(1.3);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-80px) scale(0.5);
+  }
+}
+
+/* ---- Card Actions ---- */
+.card-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-light);
+}
+
+.action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: var(--transition);
+  color: var(--text-muted);
+}
+
+.action-btn:hover {
+  background: rgba(194, 114, 122, 0.06);
+  border-color: var(--border-light);
+  color: var(--text-secondary);
+}
+
+.action-btn.edit:hover {
+  color: var(--accent-warm);
+  border-color: var(--accent-warm);
+}
+
+.action-btn.delete:hover {
+  color: #c2727a;
+  border-color: #c2727a;
+}
+
+/* ============================================
+   SECRET CODE MODAL
+   ============================================ */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(61, 46, 31, 0.4);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.modal-content {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius);
+  padding: 32px;
+  width: 90%;
+  max-width: 440px;
+  box-shadow: 0 16px 50px rgba(61, 46, 31, 0.15);
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-content h3 {
+  font-family: 'Merriweather', serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--accent-rose);
+}
+
+.modal-content p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+}
+
+.modal-error {
+  background: rgba(194, 114, 122, 0.08);
+  border: 1px solid rgba(194, 114, 122, 0.25);
+  color: var(--accent-rose);
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  margin-bottom: 16px;
+  animation: shake 0.4s ease;
+}
+
+@keyframes shake {
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-6px);
+  }
+
+  75% {
+    transform: translateX(6px);
+  }
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+/* ============================================
+   LOGIN PAGE
+   ============================================ */
+.login-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  padding: 20px;
+}
+
+.login-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 20px;
+  padding: 48px 40px;
+  max-width: 480px;
+  width: 100%;
+  box-shadow: var(--shadow-card);
+  animation: slideUp 0.5s ease;
+}
+
+.login-card .logo-emoji {
+  font-size: 3.5rem;
+  display: block;
+  margin-bottom: 16px;
+}
+
+.login-card h1 {
+  font-family: 'Merriweather', serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--accent-rose);
+}
+
+.login-card .subtitle {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin-bottom: 32px;
+  line-height: 1.65;
+}
+
+.login-features {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 32px;
+  text-align: left;
+}
+
+.login-features .feature {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.login-features .feature-emoji {
+  font-size: 1.2rem;
+}
+
+.login-divider {
+  width: 100%;
+  height: 1px;
+  background: var(--border-light);
+  margin: 20px 0;
+}
+
+.btn-google-large {
+  width: 100%;
+  justify-content: center;
+  padding: 14px 24px;
+  font-size: 1rem;
+}
+
+/* ============================================
+   TOAST / NOTIFICATION
+   ============================================ */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  padding: 14px 24px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  z-index: 2000;
+  animation: slideInRight 0.3s ease, fadeOut 0.3s ease 2.7s forwards;
+  max-width: 380px;
+}
+
+.toast.success {
+  background: rgba(104, 159, 107, 0.12);
+  border: 1px solid rgba(104, 159, 107, 0.3);
+  color: #4a7c4e;
+}
+
+.toast.error {
+  background: rgba(194, 114, 122, 0.12);
+  border: 1px solid rgba(194, 114, 122, 0.3);
+  color: var(--accent-rose);
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+/* ============================================
+   LOADING SPINNER
+   ============================================ */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  gap: 16px;
+}
+
+.spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid var(--border-light);
+  border-top-color: var(--accent-rose);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-text {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+@media (max-width: 640px) {
+  .navbar {
+    padding: 12px 16px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .navbar-brand h1 {
+    font-size: 1.1rem;
+  }
+
+  .navbar-actions {
+    gap: 8px;
+  }
+
+  .navbar-links {
+    gap: 4px;
+  }
+
+  .nav-link {
+    padding: 6px 12px;
+    font-size: 0.78rem;
+  }
+
+  .user-name {
+    display: none;
+  }
+
+  .main-content {
+    padding: 24px 16px;
+  }
+
+  .confession-form {
+    padding: 20px;
+  }
+
+  .login-card {
+    padding: 32px 24px;
+  }
+
+  .login-card h1 {
+    font-size: 1.5rem;
+  }
+
+  .confession-meta {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
