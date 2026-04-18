@@ -13,6 +13,7 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const passport = require('passport');
 const cors = require('cors');
+const path = require('path');
 require('dotenv').config();
 
 // Load Passport Google OAuth strategy configuration
@@ -77,9 +78,27 @@ app.use('/auth', require('./routes/auth'));
 app.use('/api/confessions', require('./routes/confessions'));
 
 // Simple health check endpoint
-app.get('/', (req, res) => {
+app.get('/health', (req, res) => {
     res.json({ message: '🌌 Confession Wall API is running!' });
 });
+
+// ============================================
+// Deployment - Serve Frontend in Production
+// ============================================
+if (process.env.NODE_ENV === 'production') {
+    // Serve the static files from the React app
+    app.use(express.static(path.join(__dirname, '../client/dist')));
+
+    // For any request that doesn't match an API route, send back the index.html file
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+    });
+} else {
+    // Fallback for development if someone hits the root
+    app.get('/', (req, res) => {
+        res.json({ message: '🌌 Confession Wall API is running! Use the client on port 5173.' });
+    });
+}
 
 // ============================================
 // Database Connection & Server Start

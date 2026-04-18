@@ -17,7 +17,8 @@ import ConfessPage from './pages/ConfessPage';
 import Login from './pages/Login';
 
 // Backend API base URL
-const API_URL = 'http://localhost:5000';
+// In production, we use relative paths after the server serves the frontend
+const API_URL = import.meta.env.MODE === 'production' ? '' : 'http://localhost:5000';
 
 function App() {
     // ---- State ----
