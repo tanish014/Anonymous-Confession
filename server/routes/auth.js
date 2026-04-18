@@ -39,11 +39,12 @@ router.get('/google',
 // On failure: redirect to frontend login page
 router.get('/google/callback',
     passport.authenticate('google', {
-        failureRedirect: `${process.env.CLIENT_URL || 'http://localhost:5173'}/login`
+        failureRedirect: process.env.NODE_ENV === 'production' ? '/login' : `${process.env.CLIENT_URL || 'http://localhost:5173'}/login`
     }),
     (req, res) => {
         // Successful login → redirect to React app
-        res.redirect(process.env.CLIENT_URL || 'http://localhost:5173');
+        const redirectUrl = process.env.NODE_ENV === 'production' ? '/' : (process.env.CLIENT_URL || 'http://localhost:5173');
+        res.redirect(redirectUrl);
     }
 );
 
@@ -55,7 +56,8 @@ router.get('/logout', (req, res) => {
             return res.status(500).json({ message: 'Error logging out' });
         }
         req.session.destroy(() => {
-            res.redirect(process.env.CLIENT_URL || 'http://localhost:5173');
+            const redirectUrl = process.env.NODE_ENV === 'production' ? '/' : (process.env.CLIENT_URL || 'http://localhost:5173');
+            res.redirect(redirectUrl);
         });
     });
 });
