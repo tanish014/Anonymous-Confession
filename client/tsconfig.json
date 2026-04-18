@@ -8,9 +8,7 @@
       "DOM",
       "DOM.Iterable"
     ],
-    "types": [
-      "vite/client"
-    ],
+    "types": [],
     "skipLibCheck": true,
     "allowJs": true,
     "jsx": "react-jsx",
