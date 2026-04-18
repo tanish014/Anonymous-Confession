@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "description": "Root orchestrator for Confession Wall MERN stack",
   "scripts": {
-    "install-client": "cd client && npm install",
-    "install-server": "cd server && npm install",
+    "install-client": "npm install --prefix client",
+    "install-server": "npm install --prefix server",
     "install-all": "npm run install-server && npm run install-client",
-    "build-client": "cd client && npm run build",
+    "build-client": "npm run build --prefix client",
     "build": "npm run install-all && npm run build-client",
-    "start": "cd server && npm start",
+    "start": "node server/server.js",
     "dev": "concurrently \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
     "render-postbuild": "echo 'Build complete!'"
   },
